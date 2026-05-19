@@ -355,9 +355,3 @@ Este proyecto utiliza el **Hotel Booking Demand Dataset** bajo licencia CC0 1.0 
 El código del análisis está disponible bajo licencia MIT.
 
 ---
-
-**Última actualización**: Mayo 2024  
-**Versión**: 1.0 - EDA Completa
-
----
-
