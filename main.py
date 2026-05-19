@@ -12,22 +12,6 @@ from src.viz import (
 )
 
 def main():
-    df = load_csv(RAW_PATH)
-    df = clean(df)
-    df = build_features(df)
-    # assert_columns(df, ['column_1', 'column_2'])
-
-    # --- Visualizations ---
-    plot_cancellations(df)
-    plot_lead_time_vs_cancel(df)
-    plot_adr_by_hotel(df)
-    plot_revenue_by_segment(df)
-
-    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(OUT_PATH, index=False)
-    print(f"Saved: {OUT_PATH}")
-
-def main():
     print("🚀 Starting pipeline...")
 
     # Load
