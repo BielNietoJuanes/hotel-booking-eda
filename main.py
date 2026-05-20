@@ -8,7 +8,9 @@ from src.viz import (
     plot_cancellations,
     plot_lead_time_vs_cancel,
     plot_adr_by_hotel,
-    plot_revenue_by_segment
+    plot_revenue_by_segment,
+    plot_seasonality,
+    plot_duration_vs_revenue
 )
 
 def main():
@@ -48,9 +50,30 @@ def main():
     # Features
     print("⚙️ Creating features...")
     df = build_features(df)
+    print(f"After feature engineering: {df.shape}")
+
+    # Visualizations & Analysis
+    print("\n📊 Generating visualizations and analysis...")
+    print("\n" + "="*60)
+    plot_cancellations(df)
+    
+    print("\n" + "="*60)
+    plot_lead_time_vs_cancel(df)
+    
+    print("\n" + "="*60)
+    plot_adr_by_hotel(df)
+    
+    print("\n" + "="*60)
+    plot_revenue_by_segment(df)
+    
+    print("\n" + "="*60)
+    plot_seasonality(df)
+    
+    print("\n" + "="*60)
+    plot_duration_vs_revenue(df)
 
     # Save
-    print("💾 Saving processed data...")
+    print("\n💾 Saving processed data...")
     df.to_csv(OUT_PATH, index=False)
 
     print("✅ Pipeline finished successfully!")

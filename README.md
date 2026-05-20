@@ -10,11 +10,11 @@ Este proyecto realiza un **análisis exploratorio de datos (EDA) integral** sobr
 
 El análisis responde preguntas críticas de negocio:
 
-- **¿Qué factores influyen en las cancelaciones?** (~37% de las reservas se cancelan)
-- **¿Cómo optimizar el revenue por cliente?** (Relación clara entre duración e ingresos)
-- **¿Existe estacionalidad en la demanda?** (Variación de hasta 300% entre meses)
-- **¿Qué segmentos de clientes son más rentables?** (Corporate vs OTA vs Direct)
-- **¿Cómo afecta el lead time al comportamiento de reserva?** (Predictor fuerte de cancelación)
+- **¿Qué factores influyen en las cancelaciones?** (~27.5% después de limpieza, 37% en datos raw)
+- **¿Cómo optimizar el revenue por cliente?** (Correlación 0.742 entre duración e ingresos)
+- **¿Existe estacionalidad en la demanda?** (Variación 140% entre mes pico y bajo)
+- **¿Qué segmentos de clientes son más rentables?** (8 segmentos: Corporate, OTA, Direct, Groups, etc.)
+- **¿Cómo afecta el lead time al comportamiento de reserva?** (Canceladas: 105.7 días vs Completadas: 70.1 días)
 
 ### 📂 Fuente de Datos
 
@@ -93,8 +93,6 @@ project_demo/
 
 ## 📊 Pipeline de Análisis
 
-## 📊 Pipeline de Análisis
-
 El flujo del proyecto sigue **buenas prácticas de analítica de datos** con modularización y reutilización de código:
 
 ```
@@ -137,14 +135,16 @@ El flujo del proyecto sigue **buenas prácticas de analítica de datos** con mod
 
 ## 💡 Key Insights & Hallazgos
 
-### 1️⃣ **Problema de Cancelaciones (~37%)**
-- **Hallazgo**: Aproximadamente 1 de cada 3 reservas se cancela
-- **Impacto**: Pérdida directa de ~37% del potencial de ingresos
+### 1️⃣ **Problema de Cancelaciones (~27.5% post-limpieza)**
+- **Hallazgo**: Aproximadamente 1 de cada 4 reservas se cancela después de limpieza (24,025 de 87,389)
+- **Impacto**: Pérdida directa de ~27.5% del potencial de ingresos
+- **Nota**: 37% es la tasa en datos raw (antes de remover registros defectuosos)
 - **Recomendación**: Implementar depósitos progresivos y confirmaciones automáticas
 
 ### 2️⃣ **Lead Time es Predictor Fuerte de Cancelación**
-- **Hallazgo**: Reservas anticipadas (lead time > 90 días) tienen 87% más cancelaciones
-- **Datos**: Canceladas: 166 días media vs Completadas: 89 días media
+- **Hallazgo**: Reservas canceladas tienen ~50% más lead time que completadas
+- **Datos**: Canceladas: 105.7 días media vs Completadas: 70.1 días media
+- **Implicación**: Lead time es un predictor significativo de riesgo de cancelación
 - **Recomendación**: Políticas de depósito según lead time, seguros de cancelación
 
 ### 3️⃣ **Diferenciación de Precios por Tipo de Hotel**
@@ -163,9 +163,9 @@ El flujo del proyecto sigue **buenas prácticas de analítica de datos** con mod
 - **Recomendación**: Staffing dinámico, paquetes especiales para temporada baja
 
 ### 6️⃣ **Relación Linear Duration-Revenue**
-- **Hallazgo**: Correlación fuerte (0.85+) entre noches y revenue
+- **Hallazgo**: Correlación fuerte de Pearson (0.742) entre duración e ingresos
 - **Implicación**: Incentivar estancias largas = maximizar revenue
-- **Recomendación**: Descuentos por estancias extendidas, contratos corporativos
+- **Recomendación**: Descuentos progresivos por estancias extendidas, contratos corporativos
 
 ---
 
@@ -243,10 +243,12 @@ jupyter notebook eda.ipynb
 ```
 Luego abre tu navegador en `http://localhost:8888`
 
-**Opción B: Script Python**
+**Opción B: Script Python (genera todas las visualizaciones)**
 ```bash
 python ./main.py
 ```
+
+Este script ejecuta el pipeline completo incluyendo las 6 visualizaciones interactivas.
 
 **Opción C: Ejecutar celdas específicas**
 ```bash
@@ -260,12 +262,14 @@ jupyter nbconvert --to notebook --execute notebooks/eda.ipynb
 
 | Métrica | Valor |
 |---------|-------|
-| **Registros totales** | 119,390 |
-| **Características** | 32 (después de limpieza) |
-| **Revenue total** | €34.46 millones |
-| **Tasa de cancelación** | 37.04% |
+| **Registros totales (raw)** | 119,390 |
+| **Registros después de limpieza** | 87,389 (-27.1%) |
+| **Características (después limpieza)** | 31 → 35 (con features) |
+| **Revenue total (procesado)** | €34.43 millones |
+| **Tasa de cancelación (raw)** | 37.04% |
+| **Tasa de cancelación (limpio)** | 27.5% |
 | **Países representados** | 178 |
-| **Segmentos de mercado** | 5 principales |
+| **Segmentos de mercado** | 8 (Aviation, Complementary, Corporate, Direct, Groups, Offline TA/TO, Online TA, Undefined) |
 | **Período de datos** | Múltiples años |
 
 ---
@@ -328,6 +332,104 @@ El código está **completamente documentado** con:
 3. **Dashboard**: Visualización interactiva con Plotly/Dash
 4. **Forecasting**: Predicción de demanda por mes
 5. **A/B Testing**: Validación de políticas propuestas
+
+---
+
+## ⚡ Guía Rápida de Instalación y Uso
+
+### Descripción del Proyecto
+
+Este es un proyecto completo de análisis exploratorio de datos (EDA) sobre demanda de reservas hoteleras con un **pipeline modularizado**, **6 visualizaciones automatizadas** y **documentación completa**.
+
+### Estructura del Proyecto
+
+```
+project_demo/
+├── main.py                    # Pipeline principal (ejecuta todas las fases)
+├── notebooks/eda.ipynb        # Análisis interactivo con 34 celdas
+├── src/
+│   ├── cleaning.py           # Limpieza de datos
+│   ├── features.py           # Ingeniería de features
+│   ├── viz.py                # 6 funciones de visualización
+│   ├── config.py             # Configuración
+│   ├── io.py                 # Entrada/salida
+│   └── utils.py              # Utilidades
+├── data/raw/hotel_bookings.csv       # Dataset original (119,390 registros)
+└── data/processed/                   # Datos procesados (se generan al ejecutar)
+```
+
+### Instalación Rápida
+
+**1. Crear entorno virtual:**
+```bash
+# Windows
+python -m venv .venv && .venv\Scripts\activate
+
+# macOS/Linux
+python3 -m venv .venv && source .venv/bin/activate
+```
+
+**2. Instalar dependencias:**
+```bash
+pip install -r requirements.txt
+```
+
+**3. Ejecutar el proyecto:**
+
+- **Opción A (Recomendado - Interactivo):**
+```bash
+jupyter notebook notebooks/eda.ipynb
+```
+
+- **Opción B (Script - Genera todas las visualizaciones):**
+```bash
+python main.py
+```
+
+### Características del Proyecto
+
+✅ 6 análisis automatizados con visualizaciones  
+✅ Pipeline modularizado (Load → Clean → Features → Analysis)  
+✅ Código reutilizable en `src/`  
+✅ Documentación completa  
+✅ Dataset de 119,390 registros con 32 características  
+
+### Fases del Pipeline
+
+1. **Carga de datos** (119,390 registros)
+2. **Exploración inicial** y análisis de calidad
+3. **Limpieza y preprocesamiento** (87,389 registros)
+4. **Ingeniería de features** (4 features nuevas)
+5. **6 análisis exploratorios** con visualizaciones
+6. **Validación de integridad**
+7. **Exportación de datos** procesados
+
+### Datos Generados Automáticamente
+
+**Archivo procesado:** `data/processed/hotel_bookings_clean.csv`
+
+**6 gráficos con análisis de:**
+1. Cancelaciones (27.5% tasa)
+2. Lead time vs cancelación (+50% en canceladas)
+3. ADR por tipo de hotel (€111 urbano vs €99 resort)
+4. Revenue por segmento (8 segmentos)
+5. Estacionalidad (140% variación)
+6. Duración vs ingresos (correlación 0.742)
+
+### Tecnologías Utilizadas
+
+- **Python 3.x** — Lenguaje de programación
+- **pandas** — Análisis de datos
+- **numpy** — Cálculos numéricos
+- **matplotlib/seaborn** — Visualizaciones
+- **jupyter** — Notebooks interactivos
+
+### Notas Importantes
+
+- El dataset debe estar en `data/raw/hotel_bookings.csv`
+- El pipeline está optimizado para este dataset específico
+- Las rutas están configuradas en `src/config.py`
+- Todos los datos se limpian automáticamente sin modificar el original
 
 ---
 
