@@ -15,11 +15,11 @@ def plot_cancellations(df):
     cancellation_counts = df['is_canceled'].value_counts()
     cancellation_pct = df['is_canceled'].value_counts(normalize=True) * 100
     
-    print("📊 Estadísticas de Cancelaciones:")
+    print("Estadísticas de Cancelaciones:")
     print(f"Total de reservas: {len(df):,}")
-    print(f"✅ Reservas completadas: {cancellation_counts.loc[False]:,} ({cancellation_pct.loc[False]:.1f}%)")
-    print(f"❌ Reservas canceladas:  {cancellation_counts.loc[True]:,} ({cancellation_pct.loc[True]:.1f}%)")
-    print(f"⚠️  Tasa de cancelación: {cancellation_pct.loc[True]:.1f}% (métrica crítica de negocio)\n")
+    print(f"Reservas completadas: {cancellation_counts.loc[False]:,} ({cancellation_pct.loc[False]:.1f}%)")
+    print(f"Reservas canceladas:  {cancellation_counts.loc[True]:,} ({cancellation_pct.loc[True]:.1f}%)")
+    print(f"Tasa de cancelación: {cancellation_pct.loc[True]:.1f}% (métrica crítica de negocio)\n")
     
     # Visualizar
     plt.figure(figsize=(8, 5))
@@ -39,7 +39,7 @@ def plot_lead_time_vs_cancel(df):
     """
     # Estadísticas por grupo
     lead_time_by_cancel = df.groupby('is_canceled')['lead_time'].describe()
-    print("📊 Estadísticas de Lead Time por Estado de Cancelación:")
+    print("Estadísticas de Lead Time por Estado de Cancelación:")
     print(lead_time_by_cancel)
     print()
     
@@ -62,7 +62,7 @@ def plot_adr_by_hotel(df):
     """
     # Estadísticas por hotel
     adr_by_hotel = df.groupby('hotel')['adr'].agg(['count', 'mean', 'median', 'std', 'min', 'max'])
-    print("📊 Estadísticas de ADR (Average Daily Rate) por Tipo de Hotel:")
+    print("Estadísticas de ADR (Average Daily Rate) por Tipo de Hotel:")
     print(adr_by_hotel)
     print()
     
@@ -90,7 +90,7 @@ def plot_revenue_by_segment(df):
         'is_canceled': 'mean'
     }).round(2)
     
-    print("📊 Métricas de Ingresos por Segmento de Mercado:")
+    print("Métricas de Ingresos por Segmento de Mercado:")
     print(revenue_by_segment)
     print()
     
@@ -128,15 +128,15 @@ def plot_seasonality(df):
     
     reservas_por_mes = df['arrival_date_month'].value_counts().reindex(month_order)
     
-    print("📊 Estadísticas de Estacionalidad:")
+    print("Estadísticas de Estacionalidad:")
     print("Número de reservas por mes:")
     print(reservas_por_mes)
     print()
     
     # Identificar picos y valles
-    print(f"🌞 Mes más demandado: {reservas_por_mes.idxmax()} ({reservas_por_mes.max():,} reservas)")
-    print(f"❄️ Mes menos demandado: {reservas_por_mes.idxmin()} ({reservas_por_mes.min():,} reservas)")
-    print(f"📈 Variación: {((reservas_por_mes.max() - reservas_por_mes.min()) / reservas_por_mes.min() * 100):.1f}%\n")
+    print(f"Mes más demandado: {reservas_por_mes.idxmax()} ({reservas_por_mes.max():,} reservas)")
+    print(f"Mes menos demandado: {reservas_por_mes.idxmin()} ({reservas_por_mes.min():,} reservas)")
+    print(f"Variación: {((reservas_por_mes.max() - reservas_por_mes.min()) / reservas_por_mes.min() * 100):.1f}%\n")
     
     # Visualizar
     plt.figure(figsize=(14, 6))
@@ -173,9 +173,9 @@ def plot_duration_vs_revenue(df):
     """
     # Calcular correlación
     correlation = df['total_nights'].corr(df['total_revenue'])
-    print("📊 Análisis de Duración vs Ingresos:")
+    print("Análisis de Duración vs Ingresos:")
     print(f"Correlación de Pearson: {correlation:.3f}")
-    print(f"Interpretación: {'✅ Relación fuerte y positiva' if correlation > 0.7 else '⚠️ Relación moderada'}\n")
+    print(f"Interpretación: {'Relación fuerte y positiva' if correlation > 0.7 else 'Relación moderada'}\n")
     
     # Estadísticas
     print(f"Duración promedio: {df['total_nights'].mean():.1f} noches")
@@ -205,4 +205,4 @@ def plot_duration_vs_revenue(df):
     
     # Nota sobre outliers
     outliers = df[df['total_nights'] > 30]
-    print(f"⚠️ Nota: {len(outliers):,} registros con estancias > 30 noches (outliers excluidos de la tendencia)")
+    print(f"Nota: {len(outliers):,} registros con estancias > 30 noches (outliers excluidos de la tendencia)")
