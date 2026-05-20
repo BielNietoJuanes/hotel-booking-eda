@@ -14,15 +14,15 @@ from src.viz import (
 )
 
 def main():
-    print("🚀 Starting pipeline...")
+    print("Starting pipeline...")
 
     # Load
-    print("📥 Loading data...")
+    print("Loading data...")
     df = pd.read_csv(RAW_PATH)
     print(f"Data shape: {df.shape}")
 
     # Validation
-    print("🔍 Validating columns...")
+    print("Validating columns...")
 
     required_columns = [
         'hotel',
@@ -40,20 +40,20 @@ def main():
 
     assert_columns(df, required_columns)
 
-    print("✅ Columns validation passed")
+    print("Columns validation passed")
 
     # Clean
-    print("🧼 Cleaning data...")
+    print("Cleaning data...")
     df = clean(df)
     print(f"After cleaning: {df.shape}")
 
     # Features
-    print("⚙️ Creating features...")
+    print("Creating features...")
     df = build_features(df)
     print(f"After feature engineering: {df.shape}")
 
     # Visualizations & Analysis
-    print("\n📊 Generating visualizations and analysis...")
+    print("\n Generating visualizations and analysis...")
     print("\n" + "="*60)
     plot_cancellations(df)
     
@@ -73,10 +73,10 @@ def main():
     plot_duration_vs_revenue(df)
 
     # Save
-    print("\n💾 Saving processed data...")
+    print("\n Saving processed data...")
     df.to_csv(OUT_PATH, index=False)
 
-    print("✅ Pipeline finished successfully!")
+    print(" Pipeline finished successfully!")
 
 if __name__ == "__main__":
     main()
