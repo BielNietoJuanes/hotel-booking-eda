@@ -4,7 +4,7 @@
 
 ---
 
-## 🧠 Overview
+## Overview
 
 Este proyecto realiza un **análisis exploratorio de datos (EDA) integral** sobre el comportamiento de reservas hoteleras con el objetivo de extraer **insights accionables** orientados a estrategia de negocio y revenue optimization.
 
@@ -16,7 +16,7 @@ El análisis responde preguntas críticas de negocio:
 - **¿Qué segmentos de clientes son más rentables?** (8 segmentos: Corporate, OTA, Direct, Groups, etc.)
 - **¿Cómo afecta el lead time al comportamiento de reserva?** (Canceladas: 105.7 días vs Completadas: 70.1 días)
 
-### 📂 Fuente de Datos
+### Fuente de Datos
 
 **Dataset**: Hotel Booking Demand  
 **Origen**: [Kaggle - Hotel Booking Demand Dataset](https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand?resource=download)  
@@ -26,24 +26,24 @@ El análisis responde preguntas críticas de negocio:
 
 ---
 
-## 🎯 Objetivos del Proyecto
+## Objetivos del Proyecto
 
 ### Análisis Técnico
-- ✅ Análisis exploratorio completo (EDA) del dataset
-- ✅ Limpieza y transformación de datos
-- ✅ Ingeniería de features orientada a negocio
-- ✅ Identificación de patrones y correlaciones
+- Análisis exploratorio completo (EDA) del dataset
+- Limpieza y transformación de datos
+- Ingeniería de features orientada a negocio
+- Identificación de patrones y correlaciones
 
 ### Insights de Negocio
-- 🎯 **Drivers de Cancelación**: Identificar factores predictivos (lead time, segmento, etc.)
-- 📈 **Revenue Optimization**: Maximizar ingresos por duración y segmento
-- 🌍 **Estacionalidad**: Planificar recursos según demanda temporal
-- 💰 **Segmentación de Valor**: Enfoque prioritario en clientes de alto valor
-- ⏰ **Lead Time Strategy**: Políticas de depósito y gestión de riesgo
+- **Drivers de Cancelación**: Identificar factores predictivos (lead time, segmento, etc.)
+- **Revenue Optimization**: Maximizar ingresos por duración y segmento
+- **Estacionalidad**: Planificar recursos según demanda temporal
+- **Segmentación de Valor**: Enfoque prioritario en clientes de alto valor
+- **Lead Time Strategy**: Políticas de depósito y gestión de riesgo
 
 ---
 
-## 🗂️ Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 project_demo/
@@ -57,7 +57,7 @@ project_demo/
 │   └── processed/                  # Datos transformados (future)
 │
 ├── 📁 notebooks/
-│   └── eda.ipynb                   # 📊 Análisis Exploratorio (PRINCIPAL)
+│   └── eda.ipynb                   # Análisis Exploratorio (PRINCIPAL)
 │       ├── Carga de datos
 │       ├── Exploración inicial
 │       ├── Análisis de calidad
@@ -78,7 +78,7 @@ project_demo/
 
 ---
 
-## 🛠️ Tecnologías y Stack
+## Tecnologías y Stack
 
 | Categoría | Herramientas |
 |-----------|-------------|
@@ -91,35 +91,35 @@ project_demo/
 
 ---
 
-## 📊 Pipeline de Análisis
+## Pipeline de Análisis
 
 El flujo del proyecto sigue **buenas prácticas de analítica de datos** con modularización y reutilización de código:
 
 ```
-1️⃣ Data Loading
+1️. Data Loading
    └─ Carga de CSV desde data/raw/
    
-2️⃣ Data Exploration
+2️. Data Exploration
    └─ Análisis de estructura, tipos, estadísticas
    
-3️⃣ Data Quality Check
+3️. Data Quality Check
    ├─ Detección de valores nulos
    ├─ Identificación de duplicados
    └─ Validación de rangos
    
-4️⃣ Data Cleaning (src/cleaning.py)
+4️. Data Cleaning (src/cleaning.py)
    ├─ Eliminación de columnas irrelevantes
    ├─ Tratamiento de valores nulos
    ├─ Conversión de tipos
    └─ Validación post-limpieza
    
-5️⃣ Feature Engineering (src/features.py)
+5️. Feature Engineering (src/features.py)
    ├─ total_nights: duración total de estancia
    ├─ total_guests: ocupación por reserva
    ├─ total_revenue: ingresos estimados (KPI crítico)
    └─ season: categorización estacional
    
-6️⃣ EDA & Visualization
+6️. EDA & Visualization
    ├─ Análisis de cancelaciones
    ├─ Lead time vs cancelación
    ├─ ADR por tipo de hotel
@@ -127,71 +127,71 @@ El flujo del proyecto sigue **buenas prácticas de analítica de datos** con mod
    ├─ Estacionalidad de demanda
    └─ Duración vs revenue
    
-7️⃣ Business Insights
+7️. Business Insights
    └─ 6 insights clave + recomendaciones estratégicas
 ```
 
 ---
 
-## 💡 Key Insights & Hallazgos
+## Key Insights & Hallazgos
 
-### 1️⃣ **Problema de Cancelaciones (~27.5% post-limpieza)**
+### 1️. **Problema de Cancelaciones (~27.5% post-limpieza)**
 - **Hallazgo**: Aproximadamente 1 de cada 4 reservas se cancela después de limpieza (24,025 de 87,389)
 - **Impacto**: Pérdida directa de ~27.5% del potencial de ingresos
 - **Nota**: 37% es la tasa en datos raw (antes de remover registros defectuosos)
 - **Recomendación**: Implementar depósitos progresivos y confirmaciones automáticas
 
-### 2️⃣ **Lead Time es Predictor Fuerte de Cancelación**
+### 2️. **Lead Time es Predictor Fuerte de Cancelación**
 - **Hallazgo**: Reservas canceladas tienen ~50% más lead time que completadas
 - **Datos**: Canceladas: 105.7 días media vs Completadas: 70.1 días media
 - **Implicación**: Lead time es un predictor significativo de riesgo de cancelación
 - **Recomendación**: Políticas de depósito según lead time, seguros de cancelación
 
-### 3️⃣ **Diferenciación de Precios por Tipo de Hotel**
+### 3️. **Diferenciación de Precios por Tipo de Hotel**
 - **Hallazgo**: Hoteles urbanos tienen ADR 50%+ superior a resorts
 - **Implicación**: Posicionamiento de mercado muy diferente
 - **Recomendación**: Estrategias de pricing separadas por tipo
 
-### 4️⃣ **Segmentación de Valor de Clientes**
+### 4️. **Segmentación de Valor de Clientes**
 - **Hallazgo**: Corporate genera 40%+ más revenue que OTA
 - **Datos**: Corporate: €350/noche | OTA: €180/noche
 - **Recomendación**: Programa de fidelización para Corporate, renegociar con OTA
 
-### 5️⃣ **Estacionalidad Pronunciada (Variación 300%)**
+### 5️. **Estacionalidad Pronunciada (Variación 300%)**
 - **Hallazgo**: Julio-agosto generan 300% más reservas que febrero
 - **Patrón**: Picos en verano, valles en invierno
 - **Recomendación**: Staffing dinámico, paquetes especiales para temporada baja
 
-### 6️⃣ **Relación Linear Duration-Revenue**
+### 6️. **Relación Linear Duration-Revenue**
 - **Hallazgo**: Correlación fuerte de Pearson (0.742) entre duración e ingresos
 - **Implicación**: Incentivar estancias largas = maximizar revenue
 - **Recomendación**: Descuentos progresivos por estancias extendidas, contratos corporativos
 
 ---
 
-## 🚀 Recomendaciones Estratégicas
+## Recomendaciones Estratégicas
 
-### Corto Plazo (1-3 meses) 🔴 CRÍTICA
-- [ ] Implementar políticas de depósito progresivo según lead time
-- [ ] Sistema de confirmaciones automáticas 2-4 semanas antes de llegada
-- [ ] Desarrollo de seguros de cancelación flexible
-- [ ] Ajuste dinámico de ADR por temporada y segmento
+### Corto Plazo (1-3 meses)
+- Implementar políticas de depósito progresivo según lead time
+- Sistema de confirmaciones automáticas 2-4 semanas antes de llegada
+- Desarrollo de seguros de cancelación flexible
+- Ajuste dinámico de ADR por temporada y segmento
 
-### Mediano Plazo (3-6 meses) 🟡 ALTA
-- [ ] Modelo predictivo de cancelaciones con machine learning
-- [ ] Programa de fidelización para segmento Corporate
-- [ ] Renegociación de márgenes con OTAs
-- [ ] Staffing dinámico según estacionalidad
+### Mediano Plazo (3-6 meses)
+- Modelo predictivo de cancelaciones con machine learning
+- Programa de fidelización para segmento Corporate
+- Renegociación de márgenes con OTAs
+- Staffing dinámico según estacionalidad
 
-### Largo Plazo (6-12 meses) 🟢 MEDIA
-- [ ] Sistema de revenue management integrado
-- [ ] Dashboard en tiempo real de KPIs
-- [ ] Predictive analytics para overbooking
-- [ ] Automatización de campañas por segmento
+### Largo Plazo (6-12 meses)
+- Sistema de revenue management integrado
+- Dashboard en tiempo real de KPIs
+- Predictive analytics para overbooking
+- Automatización de campañas por segmento
 
 ---
 
-## 🚀 Cómo Ejecutar el Proyecto
+## Cómo Ejecutar el Proyecto
 
 ### Requisitos Previos
 - Python 3.8+
@@ -258,7 +258,7 @@ jupyter nbconvert --to notebook --execute notebooks/eda.ipynb
 
 ---
 
-## 📈 Estadísticas del Dataset
+## Estadísticas del Dataset
 
 | Métrica | Valor |
 |---------|-------|
@@ -274,13 +274,13 @@ jupyter nbconvert --to notebook --execute notebooks/eda.ipynb
 
 ---
 
-## 📝 Documentación y Comentarios
+## Documentación y Comentarios
 
 El código está **completamente documentado** con:
-- ✅ Docstrings en todas las funciones
-- ✅ Comentarios explicativos en el análisis
-- ✅ Markdown descriptivo en el notebook
-- ✅ Insights explicados en lenguaje no técnico
+- Docstrings en todas las funciones
+- Comentarios explicativos en el análisis
+- Markdown descriptivo en el notebook
+- Insights explicados en lenguaje no técnico
 
 ### Archivos Principales
 
@@ -291,41 +291,41 @@ El código está **completamente documentado** con:
 
 ---
 
-## 🎓 Aprendizajes y Habilidades Demostradas
+## Aprendizajes y Habilidades Demostradas
 
-✅ **Análisis de Datos**
+**Análisis de Datos**
 - EDA profesional y estructurado
 - Análisis de correlaciones y patrones
 - Identificación de outliers y anomalías
 
-✅ **Data Wrangling**
+**Data Wrangling**
 - Limpieza de datos a escala
 - Tratamiento de valores nulos
 - Transformación de datos
 
-✅ **Visualización**
+**Visualización**
 - Gráficos informativos y profesionales
 - Storytelling con datos
 - Paletas de color adecuadas
 
-✅ **Ingeniería de Features**
+**Ingeniería de Features**
 - Creación de variables de negocio
 - Features correlacionadas con KPIs
 - Normalización y transformación
 
-✅ **Business Intelligence**
+**Business Intelligence**
 - Pensamiento orientado a negocio
 - Extracción de insights accionables
 - Recomendaciones estratégicas
 
-✅ **Buenas Prácticas**
+**Buenas Prácticas**
 - Código modularizado y reutilizable
 - Documentación clara
 - Reproducibilidad garantizada
 
 ---
 
-## 🔄 Próximos Pasos Posibles
+## Próximos Pasos Posibles
 
 1. **Machine Learning**: Modelo predictivo de cancelaciones
 2. **Segmentación**: Clustering de clientes por comportamiento
@@ -335,7 +335,7 @@ El código está **completamente documentado** con:
 
 ---
 
-## ⚡ Guía Rápida de Instalación y Uso
+## Guía Rápida de Instalación y Uso
 
 ### Descripción del Proyecto
 
@@ -388,11 +388,11 @@ python main.py
 
 ### Características del Proyecto
 
-✅ 6 análisis automatizados con visualizaciones  
-✅ Pipeline modularizado (Load → Clean → Features → Analysis)  
-✅ Código reutilizable en `src/`  
-✅ Documentación completa  
-✅ Dataset de 119,390 registros con 32 características  
+- 6 análisis automatizados con visualizaciones  
+- Pipeline modularizado (Load → Clean → Features → Analysis)  
+- Código reutilizable en `src/`  
+- Documentación completa  
+- Dataset de 119,390 registros con 32 características  
 
 ### Fases del Pipeline
 
@@ -433,7 +433,7 @@ python main.py
 
 ---
 
-## 📚 Recursos Adicionales
+## Recursos Adicionales
 
 - [Dataset en Kaggle](https://www.kaggle.com/datasets/jessemostipak/hotel-booking-demand?resource=download)
 - [Documentación Pandas](https://pandas.pydata.org/docs/)
@@ -442,7 +442,7 @@ python main.py
 
 ---
 
-## 📧 Contacto
+## Contacto
 
 **Autor**: Biel Nieto Juanes  
 **Proyecto**: Hotel Booking Demand Analysis  
@@ -450,7 +450,7 @@ python main.py
 
 ---
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto utiliza el **Hotel Booking Demand Dataset** bajo licencia CC0 1.0 Universal (Dominio Público) de Kaggle.
 
